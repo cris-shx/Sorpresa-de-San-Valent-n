@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Emilin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onpointermove="crearRastro(event)" onpointerdown="crearRastro(event)">
+
+    <div class="dedicatoria-wrapper">
+        <span style="color:#FFD1DC; font-size: 0.8em;">DONDE TÚ ESTÁS, FLORECE MI MUNDO</span>
+        <h1 class="rosado-neon-suave">TE AMO MI EMILIN 🌸</h1>
+        <p>¡FELIZ SAN VALENTÍN! ❤️</p>
+        
+        <div style="margin-top: 30px;">
+            <div class="frase-olvido">(¿Pensaste que me había olvidado?)</div>
+            
+            <div class="icon-box">
+                <div class="btn-icon" onclick="pedirPass()">✉️</div>
+                <div class="btn-icon" onclick="abrir('modalRuleta')">🎡</div>
+            </div>
+        </div>
+
+        <div class="firma">Att: Cristhian Chapi ♥️</div>
+    </div>
+
+    <div class="modal-overlay" id="modalAcertijo">
+        <div class="modal-content">
+            <h2 style="color:#FF1493">Un pequeño acertijo...</h2>
+            <p style="margin-top:10px;">¿Quién es el amor de mi vida?</p>
+            <input type="text" id="respuestaAcertijo" class="input-acertijo" placeholder="Escribe aquí...">
+            <div class="btn-group">
+                <button class="btn-pink" onclick="verificarRespuesta()">Entrar ❤️</button>
+                <button class="btn-gray" onclick="cerrar('modalAcertijo')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCarta">
+        <div class="modal-content">
+            <h2 style="color:#FF1493">Mi amor... ❤️</h2>
+            <div class="carta-scroll">
+                Mi amor... ¡Feliz San Valentín! <br><br>
+                Quiero que sepas que te amo de una manera que me resulta incomprensible; un sentimiento tan profundo que las palabras, simplemente, no alcanzan a explicarlo. Eres una mujer hermosa, perfecta, divina... única. Eres maravillosa y, sobre todo, eres mi mujer: esa persona que me tiene locamente enamorado.<br><br>
+                Para mí, tú eres mi mundo 🌎, mi sol ☀️ y mi estrella ✨. Eres mi aire 💨, mi universo 🌌, mi galaxia 🪐 y, en definitiva... eres mi todo absoluto.<br><br>
+                Eres la niña más hermosa que he tenido la fortuna de conocer. Sé que ahora mismo no estamos juntos físicamente, porque de ser así, no me despegaría de tu lado para llenarte de besitos y abrazos... Pero, a pesar de la distancia, aquí estoy para ti. Estoy a tu lado; tal vez no presente en cuerpo, pero sí con toda mi alma, mi amor.<br><br>
+                Te mando muchísimos besitos... ¡Muack, muack, muack!<br><br>
+                <strong>♥️ ¡Feliz San Valentín, mi amor! ♥️</strong>
+            </div>
+            <button class="btn-pink" onclick="cerrar('modalCarta')">Cerrar ❤️</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalRuleta">
+        <div class="modal-content">
+            <div class="ruleta-container">
+                <div class="flecha-roja"></div>
+                <div class="ruleta-disk" id="ruleta">
+                    <div class="slot-label" style="transform: rotate(36deg);">Mi Vida</div>
+                    <div class="slot-label" style="transform: rotate(108deg);">Seguro</div>
+                    <div class="slot-label" style="transform: rotate(180deg);">Hermosa</div>
+                    <div class="slot-label" style="transform: rotate(252deg);">Mi Sol</div>
+                    <div class="slot-label" style="transform: rotate(324deg);">Mi Todo</div>
+                </div>
+                <button onclick="girar()" id="btnGirar" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:50%; width:65px; height:65px; z-index:2600; cursor:pointer; border:4px solid #FFB7CE; background:#fff; color:#FF1493; font-weight:bold; font-size:10px;">GIRAR</button>
+            </div>
+            <button class="btn-pink" style="background:#888" onclick="cerrar('modalRuleta')">Cerrar Juego</button>
+        </div>
+    </div>
+
+    <div id="resultBox" class="foto-view">
+        <h2 id="winTexto" style="color:#FF1493"></h2>
+        <img id="winImg" src="">
+        <button class="btn-pink" style="margin-top:10px; width:100%" onclick="document.getElementById('resultBox').classList.remove('active')">OK</button>
+    </div>
+
+    <script>
+        function pedirPass() {
+            document.getElementById('respuestaAcertijo').value = "";
+            document.getElementById('modalAcertijo').style.display = 'flex';
+        }
+
+        function verificarRespuesta() {
+            const respuesta = document.getElementById('respuestaAcertijo').value.toLowerCase().trim();
+            if (respuesta === "emilin") {
+                document.getElementById('modalAcertijo').style.display = 'none';
+                abrir('modalCarta');
+            } else {
+                alert("Incorrecto... ¡Piénsalo bien, mi amor!");
+            }
+        }
+
+        function abrir(id) {
+            if(id === 'modalRuleta') { 
+                usados = []; 
+                rotacionBase = 0; 
+                document.getElementById('ruleta').style.transform = 'rotate(0deg)'; 
+            }
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function cerrar(id) { 
+            document.getElementById(id).style.display = 'none'; 
+        }
+
+        function crearRastro(e) {
+            const heart = document.createElement("div");
+            heart.className = "heart-touch";
+            heart.innerHTML = "❤️";
+            heart.style.left = e.clientX + "px";
+            heart.style.top = e.clientY + "px";
+            const size = Math.random() * 20 + 10 + "px";
+            heart.style.fontSize = size;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1500);
+        }
+
+        const config = [
+            { t: "Eres mi vida", i: "foto1.jpg" },
+            { t: "Mi lugar seguro", i: "foto2.jpg" },
+            { t: "Mi niña hermosa", i: "foto3.jpg" },
+            { t: "Mi sol diario", i: "foto4.jpg" },
+            { t: "Eres mi todo", i: "foto5.jpg" }
+        ];
+
+        let usados = [];
+        let rotacionBase = 0;
+
+        function girar() {
+            const btn = document.getElementById('btnGirar');
+            if (usados.length >= 5) {
+                alert("¡Ya salieron todas! Reinicia el juego.");
+                return;
+            }
+            btn.disabled = true;
+            let selectedId;
+            do {
+                selectedId = Math.floor(Math.random() * 5);
+            } while (usados.includes(selectedId));
+            usados.push(selectedId);
+            const gradosPorSlot = 72;
+            const centroSlot = (selectedId * gradosPorSlot) + 36;
+            rotacionBase += 1800 + (360 - (rotacionBase % 360)) - centroSlot;
+            const disco = document.getElementById('ruleta');
+            disco.style.transform = `rotate(${rotacionBase}deg)`;
+            setTimeout(() => {
+                const box = document.getElementById('resultBox');
+                document.getElementById('winTexto').innerText = config[selectedId].t;
+                document.getElementById('winImg').src = config[selectedId].i;
+                box.classList.add('active');
+                lanzarBesos();
+                btn.disabled = false;
+            }, 4100);
+        }
+
+        function lanzarBesos() {
+            for(let i=0; i<10; i++) {
+                setTimeout(() => {
+                    const b = document.createElement('div');
+                    b.className = 'beso'; b.innerHTML = '💋';
+                    b.style.left = Math.random() * 80 + 10 + '%';
+                    b.style.top = '80%'; document.body.appendChild(b);
+                    setTimeout(() => b.remove(), 3000);
+                }, i * 200);
+            }
+        }
+
+        for(let i=0;i<50;i++){
+            let s=document.createElement('div'); s.className='star';
+            s.style.width='2px'; s.style.height='2px';
+            s.style.top=Math.random()*100+'vh'; s.style.left=Math.random()*100+'vw';
+            document.body.appendChild(s);
+        }
+        setInterval(()=>{
+            let sk=document.createElement('div'); sk.className='sakura';
+            sk.innerHTML='🌸'; sk.style.left=Math.random()*100+'vw';
+            sk.style.animationDuration=Math.random()*3+2+'s';
+            document.body.appendChild(sk);
+            setTimeout(()=>sk.remove(),4000);
+        },600);
+    </script>
+</body>
+</html>

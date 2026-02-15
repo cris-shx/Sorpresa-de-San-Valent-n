@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&family=Dancing+Script:wght@700&display=swap');
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    min-height: 100vh; overflow: hidden; font-family: 'Titan One', cursive; 
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    color: white; position: relative;
+    touch-action: none; 
+}
+
+.star {
+    position: absolute; background: white; border-radius: 50%;
+    opacity: 0.6; z-index: 1; pointer-events: none;
+}
+
+.dedicatoria-wrapper { text-align: center; z-index: 10; width: 90%; }
+.rosado-neon-suave { 
+    color: #FFB7CE; font-size: 2.2em; 
+    text-shadow: 0 0 10px rgba(255, 183, 206, 0.9); margin: 10px 0;
+}
+
+.frase-olvido {
+    font-size: 0.9em;
+    color: #FFD1DC;
+    margin-bottom: 10px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.firma {
+    margin-top: 20px;
+    font-family: 'Dancing Script', cursive; 
+    font-size: 1.2em;
+    color: #FF5E5E; 
+    text-shadow: 0 0 8px rgba(255, 94, 94, 0.6);
+    font-style: italic;
+}
+
+.icon-box { display: flex; justify-content: center; gap: 40px; margin-top: 25px; }
+.btn-icon { font-size: 3.5em; cursor: pointer; transition: 0.3s; z-index: 15; position: relative; }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); display: none; 
+    justify-content: center; align-items: center; z-index: 2000;
+}
+
+.modal-content {
+    background: #FFF5F7; color: #444; padding: 20px; border-radius: 25px;
+    width: 90%; max-width: 400px; text-align: center;
+    border: 5px solid #FFB7CE; position: relative;
+    max-height: 85vh; display: flex; flex-direction: column;
+}
+
+.btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+
+.carta-scroll {
+    overflow-y: auto; margin: 15px 0; padding-right: 5px;
+    text-align: left; font-family: sans-serif; color: #333; line-height: 1.5;
+}
+
+.input-acertijo {
+    width: 80%; padding: 12px; margin: 15px 0; border-radius: 10px;
+    border: 2px solid #FFB7CE; text-align: center; font-size: 16px;
+}
+
+/* RULETA */
+.ruleta-container { position: relative; width: 280px; height: 280px; margin: 20px auto; }
+.ruleta-disk {
+    width: 100%; height: 100%; border-radius: 50%;
+    border: 8px solid #fff; position: relative; overflow: hidden;
+    transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+    background: conic-gradient(
+        #FF69B4 0deg 72deg, #FF1493 72deg 144deg, 
+        #FFB7CE 144deg 216deg, #C71585 216deg 288deg, #FF82AB 288deg 360deg
+    );
+}
+
+.flecha-roja {
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0; border-left: 18px solid transparent; 
+    border-right: 18px solid transparent; border-top: 35px solid #FF3333; z-index: 2500;
+}
+
+.slot-label {
+    position: absolute; width: 100%; height: 100%;
+    text-align: center; color: white; font-size: 0.7em;
+    font-weight: bold; padding-top: 35px; pointer-events: none;
+}
+
+.foto-view {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+    width: 85%; max-width: 350px; background: white; border-radius: 20px;
+    padding: 15px; z-index: 4000; transition: 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5); text-align: center;
+}
+.foto-view.active { transform: translate(-50%, -50%) scale(1); }
+.foto-view img { width: 100%; border-radius: 10px; margin-top: 10px; border: 3px solid #FFB7CE; }
+
+.heart-touch {
+    position: fixed; font-size: 1.5em; color: #FF69B4;
+    pointer-events: none; z-index: 9999;
+    animation: moveUp 1.5s linear forwards;
+}
+
+@keyframes moveUp {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -150px) scale(1.5); opacity: 0; }
+}
+
+.sakura { position: absolute; top: -50px; font-size: 1.5em; z-index: 5; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+.beso { position: fixed; font-size: 3em; z-index: 5000; animation: flyKiss 3s ease-out forwards; pointer-events: none; }
+@keyframes flyKiss { 0% { opacity: 1; transform: scale(0.5); } 100% { opacity: 0; transform: translateY(-500px) scale(2); } }
+
+.btn-pink { background: #FF69B4; color: white; border: none; padding: 12px 20px; border-radius: 15px; cursor: pointer; font-family: 'Titan One'; }
+.btn-gray { background: #888; color: white; border: none; padding: 12px 20px; border-radius: 15px; cursor: pointer; font-family: 'Titan One'; }
+#btnGirar:disabled { background: #ccc; cursor: not-allowed; opacity: 0.7; }
